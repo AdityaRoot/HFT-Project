@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "hft-fyt"
+version = "0.1.0"
+description = "FYT - HFT LOB Optimization via ML"
+authors = ["AdityaRoot <adityavmangla@gmail.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pandas = "^2.2.2"
+numpy = "^2.0.0"
+matplotlib = "^3.9.0"
+scikit-learn = "^1.5.0"
+seaborn = "^0.13.2"
+tardis-dev = "^2.0.0a13"
+pytest = "^8.2.2"
+jupyter = "^1.0.0"
+requests = "^2.32.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
