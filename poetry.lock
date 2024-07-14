@@ -2996,6 +2996,20 @@ pure-eval = "*"
 tests = ["cython", "littleutils", "pygments", "pytest", "typeguard"]
 
 [[package]]
+name = "ta"
+version = "0.11.0"
+description = "Technical Analysis Library in Python"
+optional = false
+python-versions = "*"
+files = [
+    {file = "ta-0.11.0.tar.gz", hash = "sha256:de86af43418420bd6b088a2ea9b95483071bf453c522a8441bc2f12bcf8493fd"},
+]
+
+[package.dependencies]
+numpy = "*"
+pandas = "*"
+
+[[package]]
 name = "tardis-dev"
 version = "2.0.0a13"
 description = "Python client for tardis.dev - historical tick-level cryptocurrency market data replay API."
@@ -3320,4 +3334,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "f256e5cac211ef2deb117e51fcc66ea7049543d48584860fc04b6e2674adfcfa"
+content-hash = "0f523615596f0db9656617ab4903f9aa8ccef85e64a86e89cb6828898fc9b6ea"
