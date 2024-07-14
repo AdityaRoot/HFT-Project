@@ -5,6 +5,7 @@ description = "FYT - HFT LOB Optimization via ML"
 authors = ["AdityaRoot <adityavmangla@gmail.com>"]
 readme = "README.md"
 package-mode = false
+packages = [{include = "*", from="src/lib"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"
