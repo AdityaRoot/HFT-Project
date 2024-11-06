@@ -3,35 +3,20 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from abc import abstractmethod
 
-from CommonUtilsBacktest import BacktestInterface
+from CommonUtilsBacktest import BacktestInterfaceL1
 
 
-class ModelBEERUSDT(BacktestInterface):
+class ModelBEERUSDT(BacktestInterfaceL1):
     def __init__(
         self,
-        quote_df,
-        trade_df,
+        source_dir,
         starting_usd=1000,
     ):
-        super().__init__()
-        self.usdt = starting_usd
+        super().__init__(source_dir, ('beer', 'usdt'), ())
+
+        self.pair1 = starting_usd
         self.beer = 0
 
-        self.quotes = self.bt_utils.clean_df(quote_df)
-        self.quote_sample = self.quotes
-
-        self.trades = self.bt_utils.clean_df(trade_df)
-        self.trades_sample = self.trades
-
-        self.buy_orders = [] # Outstanding orders
-        self.sell_orders = [] # (price, amount, timestamp)
-        self.filled_orders = [] # (price, amount, timestamp, direction)
-
-    def sample_quotes(self, start_time="", end_time="", head=None, tail=None):
-        self.bt_utils.sample_data(self.quotes, start_time, end_time, head, tail)
-
-    def sample_trades(self, start_time="", end_time="", head=None, tail=None):
-        self.bt_utils.sample_data(self.trades, start_time, end_time, head, tail)
 
     def trade_pair(self, direction, price, amount, fee=0.005):
         if direction == "buy":
@@ -73,14 +58,14 @@ class ModelBEERUSDT(BacktestInterface):
     def plot_quotes(self):
         fig, ax = plt.subplots(figsize=(12, 6))
         sns.lineplot(
-            x="local_timestamp",
+            x="timestamp",
             y="ask_price",
             data=self.quote_sample,
             ax=ax,
             label="Ask Price",
         )
         sns.lineplot(
-            x="local_timestamp",
+            x="timestamp",
             y="bid_price",
             data=self.quote_sample,
             ax=ax,
@@ -91,7 +76,7 @@ class ModelBEERUSDT(BacktestInterface):
     def plot_trades(self):
         fig, ax = plt.subplots(figsize=(12, 6))
         sns.scatterplot(
-            x="local_timestamp",
+            x="timestamp",
             y="price",
             data=self.trades_sample,
             ax=ax,
@@ -102,25 +87,28 @@ class ModelBEERUSDT(BacktestInterface):
     def plot(self):
         fig, ax = plt.subplots(figsize=(12, 6))
         sns.lineplot(
-            x="local_timestamp",
+            x="timestamp",
             y="ask_price",
             data=self.quote_sample,
             ax=ax,
             label="Ask Price",
         )
         sns.lineplot(
-            x="local_timestamp",
+            x="timestamp",
             y="bid_price",
             data=self.quote_sample,
             ax=ax,
             label="Bid Price",
         )
+
+        # Color by 'side' column
         sns.scatterplot(
-            x="local_timestamp",
+            x="timestamp",
             y="price",
             data=self.trades_sample,
             ax=ax,
             label="Trades",
+            hue="side",
         )
         plt.show()
 
@@ -131,7 +119,7 @@ class ModelBEERUSDT(BacktestInterface):
 
 if __name__ == "__main__":
     print('If mained')
-    input_csv = "../data/bybit_quotes_2024-06-14_1000BEERUSDT.csv"
+    input_csv = "../data/quotes.csv"
     sample_df = pd.read_csv(input_csv)
     sample_df = sample_df.head(100)
 
