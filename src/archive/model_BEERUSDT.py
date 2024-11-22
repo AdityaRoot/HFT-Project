@@ -18,13 +18,13 @@ class ModelBEERUSDT(BacktestInterfaceL1):
         self.beer = 0
 
 
-    def trade_pair(self, direction, price, amount, fee=0.005):
+    def trade_pair(self, direction, execution_price, amount, fee=0.005):
         if direction == "buy":
             self.beer += amount
-            self.usdt -= price * amount * (1 + fee)
+            self.usdt -= execution_price * amount * (1 + fee)
         elif direction == "sell":
             self.beer -= amount
-            self.usdt += price * amount * (1 - fee)
+            self.usdt += execution_price * amount * (1 - fee)
         else:
             raise ValueError("Invalid transaction direction")
 
